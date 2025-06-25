@@ -1,107 +1,53 @@
 
 // Enhanced Carousel functionality
 class EnhancedCarousel {
-    constructor() {
-        this.currentSlide = 0;
-        this.totalSlides = 7;
-        this.visibleSlides = 3;
-        this.slideWidth = 300 + 32; // card width + gap
-        this.track = document.getElementById('carouselTrack');
-        this.prevBtn = document.getElementById('prevBtn');
-        this.nextBtn = document.getElementById('nextBtn');
-        this.dots = document.querySelectorAll('.dot');
-        this.cards = document.querySelectorAll('.square-card');
-        
-        this.init();
-    }
+ document.addEventListener('DOMContentLoaded', function() {
+  const track = document.querySelector('.carousel-track');
+  const cards = document.querySelectorAll('.square-card');
+  const dots = document.querySelectorAll('.dot');
+  const prevBtn = document.querySelector('.carousel-btn.prev');
+  const nextBtn = document.querySelector('.carousel-btn.next');
+  const cardWidth = cards[0].offsetWidth + 32; // Ancho + gap (2rem = 32px)
+  
+  let currentIndex = 0;
+  const totalCards = cards.length;
+
+  // Actualiza la posición del carrusel
+  function updateCarousel() {
+    track.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
     
-    init() {
-        // Event listeners for navigation buttons
-        this.prevBtn.addEventListener('click', () => this.prevSlide());
-        this.nextBtn.addEventListener('click', () => this.nextSlide());
-        
-        // Event listeners for dots - properly sync with slides
-        this.dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => this.goToSlide(index));
-        });
-        
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft') this.prevSlide();
-            if (e.key === 'ArrowRight') this.nextSlide();
-        });
-        
-        // Auto-play with pause on hover
-        this.startAutoPlay();
-        this.track.addEventListener('mouseenter', () => this.pauseAutoPlay());
-        this.track.addEventListener('mouseleave', () => this.startAutoPlay());
-        
-        // Initialize first state
-        this.updateCarousel();
-    }
+    // Actualiza clases activas
+    cards.forEach((card, index) => {
+      card.classList.toggle('active', index === currentIndex);
+    });
     
-    updateCarousel() {
-        // Calculate proper translation - show all slides properly
-        const maxSlideIndex = Math.max(0, this.totalSlides - this.visibleSlides);
-        const actualSlide = Math.min(this.currentSlide, maxSlideIndex);
-        const translateX = -actualSlide * this.slideWidth;
-        this.track.style.transform = `translateX(${translateX}px)`;
-        
-        // Update active states for cards
-        this.cards.forEach((card, index) => {
-            card.classList.remove('active');
-            if (index >= actualSlide && index < actualSlide + this.visibleSlides) {
-                card.classList.add('active');
-            }
-        });
-        
-        // Update dots to properly reflect current position
-        this.dots.forEach((dot, index) => {
-            dot.classList.remove('active');
-            if (index === this.currentSlide) {
-                dot.classList.add('active');
-            }
-        });
-        
-        // Update button states - allow navigation to all slides
-        this.prevBtn.style.opacity = this.currentSlide === 0 ? '0.5' : '1';
-        this.nextBtn.style.opacity = this.currentSlide >= this.totalSlides - 1 ? '0.5' : '1';
-    }
-    
-    nextSlide() {
-        if (this.currentSlide < this.totalSlides - 1) {
-            this.currentSlide++;
-            this.updateCarousel();
-        }
-    }
-    
-    prevSlide() {
-        if (this.currentSlide > 0) {
-            this.currentSlide--;
-            this.updateCarousel();
-        }
-    }
-    
-    goToSlide(index) {
-        this.currentSlide = index;
-        this.updateCarousel();
-    }
-    
-    startAutoPlay() {
-        this.autoPlayInterval = setInterval(() => {
-            if (this.currentSlide >= this.totalSlides - 1) {
-                this.currentSlide = 0;
-            } else {
-                this.currentSlide++;
-            }
-            this.updateCarousel();
-        }, 4000);
-    }
-    
-    pauseAutoPlay() {
-        clearInterval(this.autoPlayInterval);
-    }
-}
+    dots.forEach((dot, index) => {
+      dot.classList.toggle('active', index === currentIndex);
+    });
+  }
+
+  // Navegación con botones
+  nextBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % totalCards;
+    updateCarousel();
+  });
+
+  prevBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + totalCards) % totalCards;
+    updateCarousel();
+  });
+
+  // Navegación con puntos
+  dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+      currentIndex = index;
+      updateCarousel();
+    });
+  });
+
+  // Inicializar
+  updateCarousel();
+});
 
 // Flip card functionality
 function flipCard(cardId) {
