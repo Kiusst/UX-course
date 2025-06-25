@@ -120,6 +120,8 @@ body {
 .flip-card.stacked {
     transform: scale(0.95);
     transition: transform 0.3s ease;
+	 
+	opacity: 1;
 }
 
 .flip-card-inner {
