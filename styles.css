@@ -114,12 +114,12 @@ body {
     top: 2rem;
     margin: 0 auto 6rem;
     z-index: 1;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .flip-card.stacked {
     transform: scale(0.95);
-    transition: transform 0.3s ease;
+    transition: transform 0.5s ease;
 }
 
 .flip-card-inner {
