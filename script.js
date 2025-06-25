@@ -1,52 +1,5 @@
 
 // Enhanced Carousel functionality
- document.addEventListener('DOMContentLoaded', function() {
-  const track = document.querySelector('.carousel-track');
-  const cards = document.querySelectorAll('.square-card');
-  const dots = document.querySelectorAll('.dot');
-  const prevBtn = document.querySelector('.carousel-btn.prev');
-  const nextBtn = document.querySelector('.carousel-btn.next');
-  const cardWidth = cards[0].offsetWidth + 32; // Ancho + gap (2rem = 32px)
-  
-  let currentIndex = 0;
-  const totalCards = cards.length;
-
-  // Actualiza la posición del carrusel
-  function updateCarousel() {
-    track.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
-    
-    // Actualiza clases activas
-    cards.forEach((card, index) => {
-      card.classList.toggle('active', index === currentIndex);
-    });
-    
-    dots.forEach((dot, index) => {
-      dot.classList.toggle('active', index === currentIndex);
-    });
-  }
-
-  // Navegación con botones
-  nextBtn.addEventListener('click', () => {
-    currentIndex = (currentIndex + 1) % totalCards;
-    updateCarousel();
-  });
-
-  prevBtn.addEventListener('click', () => {
-    currentIndex = (currentIndex - 1 + totalCards) % totalCards;
-    updateCarousel();
-  });
-
-  // Navegación con puntos
-  dots.forEach((dot, index) => {
-    dot.addEventListener('click', () => {
-      currentIndex = index;
-      updateCarousel();
-    });
-  });
-
-  // Inicializar
-  updateCarousel();
-});
 
 // Flip card functionality
 function flipCard(cardId) {
