@@ -103,6 +103,7 @@ body {
     margin: 0 auto;
     position: relative;
     min-height: 250vh;
+    opacity:1;
 }
 
 .flip-card.large-card {
