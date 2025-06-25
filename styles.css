@@ -152,12 +152,6 @@ body {
 }
 
 
-.flip-card-back {
-    
-    color: white;
-    transform: rotateY(180deg);
-}
-
 .flip-card h3 {
     font-family: 'Playfair Display', serif;
     font-size: 2rem;
