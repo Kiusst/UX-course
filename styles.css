@@ -118,7 +118,9 @@ body {
 }
 
 .flip-card.stacked {
-    opacity: 0.85;
+    opacity: 1;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
 }
 
 .flip-card-inner {
