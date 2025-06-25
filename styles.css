@@ -152,7 +152,12 @@ body {
 }
 
 
-
+.flip-card-back {
+    background: linear-gradient(135deg, #141414 0%, #2e2e2e 50%, #000000 100%);
+    color: white;
+    transform: rotateY(180deg);
+    transition: none; /* Elimina cualquier transición */
+}
 
 .flip-card h3 {
     font-family: 'Playfair Display', serif;
