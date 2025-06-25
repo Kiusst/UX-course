@@ -157,10 +157,14 @@ body {
 }
 
 .flip-card-back {
-    background: linear-gradient(135deg, #2a52be 0%, #8b5cf6 100%);
+    background: linear-gradient(135deg, #1a1a1a 0%, #333333 50%, #000000 100%);
     color: white;
     transform: rotateY(180deg);
+    transition: background 0.3s ease;
+}
 
+.flip-card-back:hover {
+    background: linear-gradient(135deg, #000000 0%, #444444 50%, #1a1a1a 100%);
 }
 
 .flip-card h3 {
