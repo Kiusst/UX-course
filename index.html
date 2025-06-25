@@ -1,24 +1,181 @@
+
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ux-course-showcase-page</title>
-    <meta name="description" content="Lovable Generated Project" />
-    <meta name="author" content="Lovable" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mastering UX Design - Google UX Course Journey</title>
+    <meta name="description" content="Explore my comprehensive Google UX Design Certificate journey through 7 key modules">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1 class="hero-title fade-in">Mastering UX Design</h1>
+            <p class="hero-subtitle fade-in">My Google UX Design Certificate Journey</p>
+            <p class="hero-description fade-in">
+                Explore the comprehensive 7-module program that transformed my approach to user-centered design
+            </p>
+        </div>
+    </section>
 
-    <meta property="og:title" content="ux-course-showcase-page" />
-    <meta property="og:description" content="Lovable Generated Project" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <!-- Carousel Section -->
+    <section class="carousel-section">
+        <div class="container">
+            <h2 class="section-title">Course Topics</h2>
+            
+            <div class="carousel-container">
+                <div class="carousel">
+                    <div class="carousel-track" id="carouselTrack">
+                        <div class="carousel-slide active">
+                            <div class="topic-number">1</div>
+                            <h3>Foundations of UX Design</h3>
+                            <p>Understanding user-centered design principles and the UX process</p>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="topic-number">2</div>
+                            <h3>Empathize & Define</h3>
+                            <p>User research methods and problem definition techniques</p>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="topic-number">3</div>
+                            <h3>Ideate & Design</h3>
+                            <p>Creative ideation and wireframing fundamentals</p>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="topic-number">4</div>
+                            <h3>Prototype & Test</h3>
+                            <p>Building interactive prototypes and conducting usability tests</p>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="topic-number">5</div>
+                            <h3>Responsive Web Design</h3>
+                            <p>Creating adaptive designs for all screen sizes</p>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="topic-number">6</div>
+                            <h3>UX Research</h3>
+                            <p>Advanced research methodologies and data analysis</p>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="topic-number">7</div>
+                            <h3>Portfolio Development</h3>
+                            <p>Showcasing UX work and professional presentation</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Navigation -->
+                <button class="carousel-btn prev" id="prevBtn">‹</button>
+                <button class="carousel-btn next" id="nextBtn">›</button>
+                
+                <!-- Dots -->
+                <div class="carousel-dots" id="carouselDots">
+                    <span class="dot active" data-slide="0"></span>
+                    <span class="dot" data-slide="1"></span>
+                    <span class="dot" data-slide="2"></span>
+                    <span class="dot" data-slide="3"></span>
+                    <span class="dot" data-slide="4"></span>
+                    <span class="dot" data-slide="5"></span>
+                    <span class="dot" data-slide="6"></span>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@lovable_dev" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-  </head>
+    <!-- Flip Cards Section -->
+    <section class="flip-cards-section">
+        <div class="container">
+            <h2 class="section-title">Course Insights</h2>
+            
+            <div class="cards-grid">
+                <div class="flip-card" id="card1">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h3>Course Overview</h3>
+                            <p>7 comprehensive modules covering the complete UX design process from research to final presentation</p>
+                            <button class="flip-btn" onclick="flipCard('card1')">About My Experience</button>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>My Learning Journey</h3>
+                            <p>Completed 180+ hours of hands-on learning with real-world projects and case studies</p>
+                            <button class="flip-btn outline" onclick="flipCard('card1')">Back to Course Info</button>
+                        </div>
+                    </div>
+                </div>
 
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+                <div class="flip-card" id="card2">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h3>Skills Gained</h3>
+                            <p>User research, wireframing, prototyping, usability testing, and responsive design principles</p>
+                            <button class="flip-btn" onclick="flipCard('card2')">About My Experience</button>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>Projects Completed</h3>
+                            <p>3 end-to-end UX projects including mobile app design and e-commerce website redesign</p>
+                            <button class="flip-btn outline" onclick="flipCard('card2')">Back to Course Info</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card" id="card3">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h3>Tools Mastered</h3>
+                            <p>Figma, Adobe XD, Miro, Maze, and various prototyping and research tools</p>
+                            <button class="flip-btn" onclick="flipCard('card3')">About My Experience</button>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>Real Impact</h3>
+                            <p>Improved user satisfaction by 40% in final project through iterative design and testing</p>
+                            <button class="flip-btn outline" onclick="flipCard('card3')">Back to Course Info</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section class="achievements-section">
+        <div class="container">
+            <h2 class="section-title">Key Achievements</h2>
+            
+            <div class="achievements-grid">
+                <div class="achievement-card">
+                    <div class="achievement-number">180+</div>
+                    <h3>Hours of Learning</h3>
+                    <p>Intensive hands-on coursework covering all aspects of UX design</p>
+                </div>
+                
+                <div class="achievement-card">
+                    <div class="achievement-number">3</div>
+                    <h3>Portfolio Projects</h3>
+                    <p>End-to-end UX projects from research to final prototype</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to See My Work?</h2>
+            <p>Explore my complete UX portfolio and case studies</p>
+            <button class="cta-btn">View Portfolio →</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 UX Design Journey. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
 </html>
