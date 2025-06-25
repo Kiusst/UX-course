@@ -114,12 +114,12 @@ body {
     top: 2rem;
     margin: 0 auto 6rem;
     z-index: 1;
-    transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .flip-card.stacked {
     transform: scale(0.95);
-    transition: transform 0.5s ease;
+    transition: transform 0.3s ease;
 }
 
 .flip-card-inner {
@@ -151,6 +151,17 @@ body {
     border: 2px solid #e2e8f0;
 }
 
+.flip-card-front {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border: 1px solid #e2e8f0;
+}
+
+.flip-card-back {
+    background: linear-gradient(135deg, #2a52be 0%, #8b5cf6 100%);
+    color: white;
+    transform: rotateY(180deg);
+
+}
 
 .flip-card h3 {
     font-family: 'Playfair Display', serif;
