@@ -148,6 +148,8 @@ body {
     justify-content: space-between;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
     opacity:1;
+     box-shadow: none;
+    border: 2px solid #e2e8f0;
 }
 
 .flip-card-front {
