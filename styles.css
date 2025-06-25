@@ -161,9 +161,6 @@ body {
  color: white;
  transform: rotateY(180deg);}
 
-.flip-card-back:hover {
-    background: linear-gradient(135deg, #000000 0%, #444444 50%, #1a1a1a 100%);
-}
 
 .flip-card h3 {
     font-family: 'Playfair Display', serif;
