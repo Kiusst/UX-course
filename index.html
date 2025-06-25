@@ -7,7 +7,7 @@
     <title>Mastering UX Design - Google UX Course Journey</title>
     <meta name="description" content="Explore my comprehensive Google UX Design Certificate journey through 7 key modules">
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Hero Section -->
@@ -27,111 +27,191 @@
             <h2 class="section-title">Course Topics</h2>
             
             <div class="carousel-container">
-                <div class="carousel">
+                <div class="carousel-wrapper">
                     <div class="carousel-track" id="carouselTrack">
-                        <div class="carousel-slide active">
-                            <div class="topic-number">1</div>
-                            <h3>Foundations of UX Design</h3>
-                            <p>Understanding user-centered design principles and the UX process</p>
+                        <div class="carousel-slide square-card active" data-index="0">
+                            <div class="card-content">
+                                <div class="topic-number">1</div>
+                                <div class="image-placeholder"></div>
+                                <h3>Foundations of UX Design</h3>
+                                <p>Understanding user-centered design principles</p>
+                            </div>
                         </div>
-                        <div class="carousel-slide">
-                            <div class="topic-number">2</div>
-                            <h3>Empathize & Define</h3>
-                            <p>User research methods and problem definition techniques</p>
+                        <div class="carousel-slide square-card" data-index="1">
+                            <div class="card-content">
+                                <div class="topic-number">2</div>
+                                <div class="image-placeholder"></div>
+                                <h3>Empathize & Define</h3>
+                                <p>User research methods and problem definition</p>
+                            </div>
                         </div>
-                        <div class="carousel-slide">
-                            <div class="topic-number">3</div>
-                            <h3>Ideate & Design</h3>
-                            <p>Creative ideation and wireframing fundamentals</p>
+                        <div class="carousel-slide square-card" data-index="2">
+                            <div class="card-content">
+                                <div class="topic-number">3</div>
+                                <div class="image-placeholder"></div>
+                                <h3>Ideate & Design</h3>
+                                <p>Creative ideation and wireframing</p>
+                            </div>
                         </div>
-                        <div class="carousel-slide">
-                            <div class="topic-number">4</div>
-                            <h3>Prototype & Test</h3>
-                            <p>Building interactive prototypes and conducting usability tests</p>
+                        <div class="carousel-slide square-card" data-index="3">
+                            <div class="card-content">
+                                <div class="topic-number">4</div>
+                                <div class="image-placeholder"></div>
+                                <h3>Prototype & Test</h3>
+                                <p>Building interactive prototypes</p>
+                            </div>
                         </div>
-                        <div class="carousel-slide">
-                            <div class="topic-number">5</div>
-                            <h3>Responsive Web Design</h3>
-                            <p>Creating adaptive designs for all screen sizes</p>
+                        <div class="carousel-slide square-card" data-index="4">
+                            <div class="card-content">
+                                <div class="topic-number">5</div>
+                                <div class="image-placeholder"></div>
+                                <h3>Responsive Web Design</h3>
+                                <p>Creating adaptive designs</p>
+                            </div>
                         </div>
-                        <div class="carousel-slide">
-                            <div class="topic-number">6</div>
-                            <h3>UX Research</h3>
-                            <p>Advanced research methodologies and data analysis</p>
+                        <div class="carousel-slide square-card" data-index="5">
+                            <div class="card-content">
+                                <div class="topic-number">6</div>
+                                <div class="image-placeholder"></div>
+                                <h3>UX Research</h3>
+                                <p>Advanced research methodologies</p>
+                            </div>
                         </div>
-                        <div class="carousel-slide">
-                            <div class="topic-number">7</div>
-                            <h3>Portfolio Development</h3>
-                            <p>Showcasing UX work and professional presentation</p>
+                        <div class="carousel-slide square-card" data-index="6">
+                            <div class="card-content">
+                                <div class="topic-number">7</div>
+                                <div class="image-placeholder"></div>
+                                <h3>Portfolio Development</h3>
+                                <p>Showcasing UX work professionally</p>
+                            </div>
                         </div>
                     </div>
+                    <div class="gradient-overlay"></div>
                 </div>
                 
                 <!-- Navigation -->
                 <button class="carousel-btn prev" id="prevBtn">‹</button>
                 <button class="carousel-btn next" id="nextBtn">›</button>
                 
-                <!-- Dots -->
+                <!-- Interactive Dots -->
                 <div class="carousel-dots" id="carouselDots">
                     <span class="dot active" data-slide="0"></span>
                     <span class="dot" data-slide="1"></span>
                     <span class="dot" data-slide="2"></span>
                     <span class="dot" data-slide="3"></span>
                     <span class="dot" data-slide="4"></span>
-                    <span class="dot" data-slide="5"></span>
-                    <span class="dot" data-slide="6"></span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Flip Cards Section -->
+    <!-- Stacking Flip Cards Section -->
     <section class="flip-cards-section">
         <div class="container">
             <h2 class="section-title">Course Insights</h2>
             
-            <div class="cards-grid">
-                <div class="flip-card" id="card1">
+            <div class="stacking-cards-container">
+                <div class="flip-card large-card" id="card1" data-card="0">
                     <div class="flip-card-inner">
                         <div class="flip-card-front">
                             <h3>Course Overview</h3>
-                            <p>7 comprehensive modules covering the complete UX design process from research to final presentation</p>
+                            <p>7 comprehensive modules covering the complete UX design process from research to final presentation with hands-on projects</p>
                             <button class="flip-btn" onclick="flipCard('card1')">About My Experience</button>
                         </div>
                         <div class="flip-card-back">
                             <h3>My Learning Journey</h3>
-                            <p>Completed 180+ hours of hands-on learning with real-world projects and case studies</p>
+                            <p>Completed 180+ hours of intensive learning with real-world case studies and practical applications in modern UX design</p>
                             <button class="flip-btn outline" onclick="flipCard('card1')">Back to Course Info</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="flip-card" id="card2">
+                <div class="flip-card large-card" id="card2" data-card="1">
                     <div class="flip-card-inner">
                         <div class="flip-card-front">
-                            <h3>Skills Gained</h3>
-                            <p>User research, wireframing, prototyping, usability testing, and responsive design principles</p>
+                            <h3>Skills Development</h3>
+                            <p>User research, wireframing, prototyping, usability testing, and responsive design principles with industry-standard tools</p>
                             <button class="flip-btn" onclick="flipCard('card2')">About My Experience</button>
                         </div>
                         <div class="flip-card-back">
                             <h3>Projects Completed</h3>
-                            <p>3 end-to-end UX projects including mobile app design and e-commerce website redesign</p>
+                            <p>3 end-to-end UX projects including mobile app design, e-commerce redesign, and accessibility improvements</p>
                             <button class="flip-btn outline" onclick="flipCard('card2')">Back to Course Info</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="flip-card" id="card3">
+                <div class="flip-card large-card" id="card3" data-card="2">
                     <div class="flip-card-inner">
                         <div class="flip-card-front">
-                            <h3>Tools Mastered</h3>
-                            <p>Figma, Adobe XD, Miro, Maze, and various prototyping and research tools</p>
+                            <h3>Tools Mastery</h3>
+                            <p>Figma, Adobe XD, Miro, Maze, and various prototyping tools with advanced techniques for professional workflows</p>
                             <button class="flip-btn" onclick="flipCard('card3')">About My Experience</button>
                         </div>
                         <div class="flip-card-back">
                             <h3>Real Impact</h3>
-                            <p>Improved user satisfaction by 40% in final project through iterative design and testing</p>
+                            <p>Improved user satisfaction by 40% in final project through iterative design and comprehensive user testing</p>
                             <button class="flip-btn outline" onclick="flipCard('card3')">Back to Course Info</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card large-card" id="card4" data-card="3">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h3>Research Methods</h3>
+                            <p>Comprehensive user research techniques including interviews, surveys, usability testing, and data analysis</p>
+                            <button class="flip-btn" onclick="flipCard('card4')">About My Experience</button>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>User Insights</h3>
+                            <p>Conducted 50+ user interviews and analyzed behavioral patterns to inform design decisions</p>
+                            <button class="flip-btn outline" onclick="flipCard('card4')">Back to Course Info</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card large-card" id="card5" data-card="4">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h3>Design Systems</h3>
+                            <p>Creating consistent design systems, component libraries, and style guides for scalable design solutions</p>
+                            <button class="flip-btn" onclick="flipCard('card5')">About My Experience</button>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>System Building</h3>
+                            <p>Built comprehensive design systems used by 3 different teams, improving design consistency by 60%</p>
+                            <button class="flip-btn outline" onclick="flipCard('card5')">Back to Course Info</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card large-card" id="card6" data-card="5">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h3>Accessibility Focus</h3>
+                            <p>Inclusive design principles, WCAG guidelines, and creating accessible digital experiences for all users</p>
+                            <button class="flip-btn" onclick="flipCard('card6')">About My Experience</button>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>Inclusive Design</h3>
+                            <p>Redesigned 2 major interfaces to meet WCAG 2.1 AA standards, improving accessibility scores by 85%</p>
+                            <button class="flip-btn outline" onclick="flipCard('card6')">Back to Course Info</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card large-card" id="card7" data-card="6">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <h3>Portfolio Excellence</h3>
+                            <p>Professional portfolio development, case study presentation, and storytelling through design documentation</p>
+                            <button class="flip-btn" onclick="flipCard('card7')">About My Experience</button>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>Career Ready</h3>
+                            <p>Created award-winning portfolio that secured 3 job interviews and multiple freelance opportunities</p>
+                            <button class="flip-btn outline" onclick="flipCard('card7')">Back to Course Info</button>
                         </div>
                     </div>
                 </div>
