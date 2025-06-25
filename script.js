@@ -1,4 +1,3 @@
-
 // Enhanced Carousel functionality
 class EnhancedCarousel {
     constructor() {
@@ -20,7 +19,7 @@ class EnhancedCarousel {
         this.prevBtn.addEventListener('click', () => this.prevSlide());
         this.nextBtn.addEventListener('click', () => this.nextSlide());
         
-        // Event listeners for dots
+        // Event listeners for dots - fix pagination to match slides
         this.dots.forEach((dot, index) => {
             dot.addEventListener('click', () => this.goToSlide(index));
         });
@@ -41,13 +40,11 @@ class EnhancedCarousel {
     }
     
     updateCarousel() {
-        // Calculate the translation based on visible slides
-        const maxTranslate = -(this.totalSlides - this.visibleSlides) * this.slideWidth;
-        const translateX = Math.max(maxTranslate, -this.currentSlide * this.slideWidth);
-        
+        // Fix: Calculate proper translation for current slide
+        const translateX = -this.currentSlide * this.slideWidth;
         this.track.style.transform = `translateX(${translateX}px)`;
         
-        // Update active states for cards
+        // Update active states for cards - fix to show current 3 cards
         this.cards.forEach((card, index) => {
             card.classList.remove('active');
             if (index >= this.currentSlide && index < this.currentSlide + this.visibleSlides) {
@@ -55,10 +52,13 @@ class EnhancedCarousel {
             }
         });
         
-        // Update dots (showing position in groups)
-        const dotIndex = Math.floor(this.currentSlide / this.visibleSlides);
+        // Fix: Update dots to match current slide position
         this.dots.forEach((dot, index) => {
-            dot.classList.toggle('active', index === dotIndex);
+            dot.classList.remove('active');
+            // Show active dot based on current slide group
+            if (index === Math.floor(this.currentSlide)) {
+                dot.classList.add('active');
+            }
         });
         
         // Update button states
@@ -81,8 +81,9 @@ class EnhancedCarousel {
     }
     
     goToSlide(dotIndex) {
-        this.currentSlide = dotIndex * this.visibleSlides;
-        if (this.currentSlide >= this.totalSlides - this.visibleSlides) {
+        // Fix: Navigate to correct slide when dot is clicked
+        this.currentSlide = dotIndex;
+        if (this.currentSlide > this.totalSlides - this.visibleSlides) {
             this.currentSlide = this.totalSlides - this.visibleSlides;
         }
         this.updateCarousel();
@@ -116,7 +117,7 @@ function flipCard(cardId) {
     }, 300);
 }
 
-// Stacking cards scroll animation
+// Fixed Stacking Cards scroll animation
 class StackingCards {
     constructor() {
         this.cards = document.querySelectorAll('.flip-card.large-card');
@@ -125,61 +126,36 @@ class StackingCards {
     }
     
     init() {
-        this.setupIntersectionObserver();
         this.handleScroll();
         window.addEventListener('scroll', () => this.handleScroll());
     }
     
-    setupIntersectionObserver() {
-        const observerOptions = {
-            threshold: [0, 0.25, 0.5, 0.75, 1],
-            rootMargin: '-100px 0px -100px 0px'
-        };
-        
-        this.observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                const card = entry.target;
-                const cardIndex = parseInt(card.dataset.card);
-                
-                if (entry.isIntersecting) {
-                    // Card is visible
-                    card.classList.remove('stacked');
-                    card.style.transform = 'translateY(0) scale(1)';
-                    card.style.opacity = '1';
-                } else if (entry.boundingClientRect.top < 0) {
-                    // Card has scrolled past
-                    card.classList.add('stacked');
-                    const stackOffset = cardIndex * 0.5;
-                    card.style.transform = `translateY(-${1 + stackOffset}rem) scale(${0.95 - cardIndex * 0.02})`;
-                    card.style.opacity = Math.max(0.3, 1 - cardIndex * 0.1);
-                }
-            });
-        }, observerOptions);
-        
-        this.cards.forEach(card => {
-            this.observer.observe(card);
-        });
-    }
-    
     handleScroll() {
         const scrollTop = window.pageYOffset;
-        const containerRect = this.container.getBoundingClientRect();
-        const containerTop = containerRect.top + scrollTop;
+        const windowHeight = window.innerHeight;
         
         this.cards.forEach((card, index) => {
             const cardRect = card.getBoundingClientRect();
             const cardTop = cardRect.top + scrollTop;
-            const progress = (scrollTop - cardTop + window.innerHeight) / window.innerHeight;
+            const cardBottom = cardTop + cardRect.height;
             
-            if (progress > 0 && progress < 2) {
-                // Apply smooth stacking effect
-                const stackProgress = Math.max(0, Math.min(1, progress - 0.5));
-                const translateY = stackProgress * -20 * (index + 1);
-                const scale = 1 - stackProgress * 0.05 * (index + 1);
-                const opacity = Math.max(0.6, 1 - stackProgress * 0.1 * index);
+            // Calculate if card should be stacked
+            const triggerPoint = scrollTop + windowHeight * 0.8;
+            
+            if (triggerPoint > cardTop) {
+                // Card should start stacking
+                const stackProgress = Math.min(1, (triggerPoint - cardTop) / (windowHeight * 0.3));
+                const stackOffset = index * 10; // Each card stacks 10px higher
+                const scaleReduction = index * 0.02; // Each card scales down slightly
                 
-                card.style.transform = `translateY(${translateY}px) scale(${scale})`;
-                card.style.opacity = opacity;
+                card.style.transform = `translateY(-${stackOffset * stackProgress}px) scale(${1 - scaleReduction * stackProgress})`;
+                card.style.zIndex = this.cards.length - index; // Higher cards have higher z-index
+                card.classList.add('stacked');
+            } else {
+                // Card is in normal position
+                card.style.transform = 'translateY(0) scale(1)';
+                card.style.zIndex = index + 1;
+                card.classList.remove('stacked');
             }
         });
     }
