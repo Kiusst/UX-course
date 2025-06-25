@@ -103,7 +103,6 @@ body {
     margin: 0 auto;
     position: relative;
     min-height: 250vh;
-    opacity:1;
 }
 
 .flip-card.large-card {
@@ -119,7 +118,6 @@ body {
 }
 
 .flip-card.stacked {
-    opacity: 1;
     transform: scale(0.95);
     transition: transform 0.3s ease;
 }
@@ -149,18 +147,19 @@ body {
     flex-direction: column;
     justify-content: space-between;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    opacity:1;
 }
 
 .flip-card-front {
     background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
     border: 1px solid #e2e8f0;
+    opacity: 1;
 }
 
 .flip-card-back {
     background: linear-gradient(135deg, #2a52be 0%, #8b5cf6 100%);
     color: white;
     transform: rotateY(180deg);
+    opacity: 1;
 }
 
 .flip-card h3 {
