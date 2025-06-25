@@ -88,8 +88,7 @@ const observer = new IntersectionObserver((entries) => {
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize enhanced carousel
-    const carousel = new EnhancedCarousel();
+
     
     // Initialize stacking cards
     const stackingCards = new StackingCards();
