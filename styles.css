@@ -147,6 +147,7 @@ body {
     flex-direction: column;
     justify-content: space-between;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    opacity:1;
 }
 
 .flip-card-front {
