@@ -1,6 +1,5 @@
 
 // Enhanced Carousel functionality
-class EnhancedCarousel {
  document.addEventListener('DOMContentLoaded', function() {
   const track = document.querySelector('.carousel-track');
   const cards = document.querySelectorAll('.square-card');
