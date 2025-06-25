@@ -1,3 +1,4 @@
+
 /* Reset and Base Styles */
 * {
     margin: 0;
@@ -36,6 +37,12 @@ body {
     margin-bottom: 1.5rem;
     letter-spacing: -0.02em;
     text-shadow: 0 4px 20px rgba(42, 82, 190, 0.1);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+.hero-title:hover {
+    transform: scale(1.05);
 }
 
 .hero-subtitle {
@@ -279,35 +286,26 @@ body {
 }
 
 .stacking-cards-container {
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
     position: relative;
-    min-height: 200vh; /* Increased height for better stacking effect */
+    min-height: 250vh;
 }
 
 .flip-card.large-card {
     width: 100%;
-    max-width: 700px;
-    height: 20rem;
+    max-width: 800px;
+    height: 22rem;
     perspective: 1000px;
     position: sticky;
     top: 2rem;
-    margin: 0 auto 4rem; /* Increased bottom margin for better spacing */
+    margin: 0 auto 6rem;
     z-index: 1;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Fixed z-index stacking order */
-.flip-card.large-card[data-card="0"] { z-index: 7; }
-.flip-card.large-card[data-card="1"] { z-index: 6; }
-.flip-card.large-card[data-card="2"] { z-index: 5; }
-.flip-card.large-card[data-card="3"] { z-index: 4; }
-.flip-card.large-card[data-card="4"] { z-index: 3; }
-.flip-card.large-card[data-card="5"] { z-index: 2; }
-.flip-card.large-card[data-card="6"] { z-index: 1; }
-
 .flip-card.stacked {
-    opacity: 0.9;
+    opacity: 0.85;
 }
 
 .flip-card-inner {
@@ -525,6 +523,10 @@ body {
         padding: 0 1rem;
     }
     
+    .hero-title:hover {
+        transform: scale(1.02);
+    }
+    
     .carousel-wrapper {
         margin: 0 2rem;
     }
@@ -559,7 +561,7 @@ body {
     
     .flip-card.large-card {
         height: 18rem;
-        margin-bottom: 1rem;
+        margin-bottom: 3rem;
     }
     
     .flip-card-front,
@@ -579,6 +581,10 @@ body {
         grid-template-columns: 1fr;
         gap: 2rem;
     }
+    
+    .stacking-cards-container {
+        max-width: 95%;
+    }
 }
 
 @media (max-width: 480px) {
@@ -597,6 +603,7 @@ body {
     
     .flip-card.large-card {
         height: 16rem;
+        margin-bottom: 2rem;
     }
     
     .flip-card-front,
@@ -613,20 +620,4 @@ body {
     .image-placeholder {
         height: 80px;
     }
-}
-
-/* Enhanced scrolling animations */
-@keyframes stackCard {
-    0% {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(-1rem) scale(0.95);
-        opacity: 0.8;
-    }
-}
-
-.flip-card.animate-stack {
-    animation: stackCard 0.4s ease-out forwards;
 }

@@ -1,3 +1,4 @@
+
 // Enhanced Carousel functionality
 class EnhancedCarousel {
     constructor() {
@@ -19,7 +20,7 @@ class EnhancedCarousel {
         this.prevBtn.addEventListener('click', () => this.prevSlide());
         this.nextBtn.addEventListener('click', () => this.nextSlide());
         
-        // Event listeners for dots - fix pagination to match slides
+        // Event listeners for dots - properly sync with slides
         this.dots.forEach((dot, index) => {
             dot.addEventListener('click', () => this.goToSlide(index));
         });
@@ -40,34 +41,35 @@ class EnhancedCarousel {
     }
     
     updateCarousel() {
-        // Fix: Calculate proper translation for current slide
-        const translateX = -this.currentSlide * this.slideWidth;
+        // Calculate proper translation - show all slides properly
+        const maxSlideIndex = Math.max(0, this.totalSlides - this.visibleSlides);
+        const actualSlide = Math.min(this.currentSlide, maxSlideIndex);
+        const translateX = -actualSlide * this.slideWidth;
         this.track.style.transform = `translateX(${translateX}px)`;
         
-        // Update active states for cards - fix to show current 3 cards
+        // Update active states for cards
         this.cards.forEach((card, index) => {
             card.classList.remove('active');
-            if (index >= this.currentSlide && index < this.currentSlide + this.visibleSlides) {
+            if (index >= actualSlide && index < actualSlide + this.visibleSlides) {
                 card.classList.add('active');
             }
         });
         
-        // Fix: Update dots to match current slide position
+        // Update dots to properly reflect current position
         this.dots.forEach((dot, index) => {
             dot.classList.remove('active');
-            // Show active dot based on current slide group
-            if (index === Math.floor(this.currentSlide)) {
+            if (index === this.currentSlide) {
                 dot.classList.add('active');
             }
         });
         
-        // Update button states
+        // Update button states - allow navigation to all slides
         this.prevBtn.style.opacity = this.currentSlide === 0 ? '0.5' : '1';
-        this.nextBtn.style.opacity = this.currentSlide >= this.totalSlides - this.visibleSlides ? '0.5' : '1';
+        this.nextBtn.style.opacity = this.currentSlide >= this.totalSlides - 1 ? '0.5' : '1';
     }
     
     nextSlide() {
-        if (this.currentSlide < this.totalSlides - this.visibleSlides) {
+        if (this.currentSlide < this.totalSlides - 1) {
             this.currentSlide++;
             this.updateCarousel();
         }
@@ -80,18 +82,14 @@ class EnhancedCarousel {
         }
     }
     
-    goToSlide(dotIndex) {
-        // Fix: Navigate to correct slide when dot is clicked
-        this.currentSlide = dotIndex;
-        if (this.currentSlide > this.totalSlides - this.visibleSlides) {
-            this.currentSlide = this.totalSlides - this.visibleSlides;
-        }
+    goToSlide(index) {
+        this.currentSlide = index;
         this.updateCarousel();
     }
     
     startAutoPlay() {
         this.autoPlayInterval = setInterval(() => {
-            if (this.currentSlide >= this.totalSlides - this.visibleSlides) {
+            if (this.currentSlide >= this.totalSlides - 1) {
                 this.currentSlide = 0;
             } else {
                 this.currentSlide++;
@@ -128,6 +126,11 @@ class StackingCards {
     init() {
         this.handleScroll();
         window.addEventListener('scroll', () => this.handleScroll());
+        
+        // Set initial z-index values
+        this.cards.forEach((card, index) => {
+            card.style.zIndex = this.cards.length - index;
+        });
     }
     
     handleScroll() {
@@ -137,24 +140,23 @@ class StackingCards {
         this.cards.forEach((card, index) => {
             const cardRect = card.getBoundingClientRect();
             const cardTop = cardRect.top + scrollTop;
-            const cardBottom = cardTop + cardRect.height;
             
-            // Calculate if card should be stacked
-            const triggerPoint = scrollTop + windowHeight * 0.8;
+            // Calculate when card should start stacking
+            const triggerPoint = scrollTop + windowHeight * 0.7;
             
             if (triggerPoint > cardTop) {
-                // Card should start stacking
-                const stackProgress = Math.min(1, (triggerPoint - cardTop) / (windowHeight * 0.3));
-                const stackOffset = index * 10; // Each card stacks 10px higher
-                const scaleReduction = index * 0.02; // Each card scales down slightly
+                // Card should stack - move it up and scale down slightly
+                const stackProgress = Math.min(1, (triggerPoint - cardTop) / (windowHeight * 0.2));
+                const stackOffset = index * 20; // Stack each card 20px higher
+                const scaleReduction = index * 0.05; // Scale down slightly
                 
                 card.style.transform = `translateY(-${stackOffset * stackProgress}px) scale(${1 - scaleReduction * stackProgress})`;
-                card.style.zIndex = this.cards.length - index; // Higher cards have higher z-index
+                card.style.zIndex = this.cards.length + index; // Reverse z-index for proper stacking
                 card.classList.add('stacked');
             } else {
                 // Card is in normal position
                 card.style.transform = 'translateY(0) scale(1)';
-                card.style.zIndex = index + 1;
+                card.style.zIndex = this.cards.length - index;
                 card.classList.remove('stacked');
             }
         });
@@ -185,14 +187,6 @@ const observer = new IntersectionObserver((entries) => {
         }
     });
 }, observerOptions);
-
-// Smooth scroll for internal links
-function smoothScroll(target) {
-    document.querySelector(target).scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-    });
-}
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
@@ -257,58 +251,4 @@ document.addEventListener('DOMContentLoaded', () => {
         
         isDragging = false;
     }, { passive: true });
-    
-    // Add keyboard shortcuts
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Space') {
-            e.preventDefault();
-            // Scroll to next section
-            const sections = document.querySelectorAll('section');
-            const currentSection = Array.from(sections).find(section => {
-                const rect = section.getBoundingClientRect();
-                return rect.top >= 0 && rect.top < window.innerHeight / 2;
-            });
-            
-            if (currentSection) {
-                const nextSection = currentSection.nextElementSibling;
-                if (nextSection) {
-                    nextSection.scrollIntoView({ behavior: 'smooth' });
-                }
-            }
-        }
-    });
-    
-    // Add loading animation
-    document.body.classList.add('loaded');
-    
-    // Parallax effect for hero section
-    window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset;
-        const hero = document.querySelector('.hero');
-        const rate = scrolled * -0.5;
-        
-        if (hero) {
-            hero.style.transform = `translateY(${rate}px)`;
-        }
-    });
 });
-
-// Performance optimization: Debounce scroll events
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-}
-
-// Apply debouncing to scroll-heavy functions
-const debouncedScroll = debounce(() => {
-    // Any heavy scroll calculations can go here
-}, 10);
-
-window.addEventListener('scroll', debouncedScroll);
