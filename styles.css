@@ -1,4 +1,13 @@
-
+:root {
+    --primary: #4285F4; /* Azul principal de Google */
+    --secondary: #DB4437; /* Rojo de acento */
+    --background: #F5F5F5; /* Fondo claro */
+    --text-main: #202124; /* Texto principal */
+    --text-muted: #5F6368; /* Texto secundario */
+    --card-background: #FFFFFF; /* Fondo de tarjetas */
+    --highlight: #0F9D58; /* Verde de acento */
+    --hover: #F1F3F4; /* Hover claro */
+}
 /* Reset and Base Styles */
 * {
     margin: 0;
@@ -8,37 +17,43 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    line-height: 1.6;
-    color:#2c3e50 ;
+    line-height: 2;
     overflow-x: hidden;
+    background-color: var(--background);
+    color: var(--text-main);
 }
 
-.container {
-    max-width: 1400px;
+.container1 {
+    
+    
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 16px;
 }
+
 
 /* Hero Section */
+
 .hero {
-    background: linear-gradient(to bottom, #FFFFFF 0%, #F8F9FA 100%);
+   background: linear-gradient(to bottom, var(--background) 0%, #FFFFFF 100%);
     min-height: 100vh;
-    display: flex;
+    display:flex;
     align-items: center;
     text-align: center;
     padding: 5rem 0;
+    
 }
 
 .hero-title {
     font-family: 'Roboto', sans-serif;
     font-size: clamp(3.5rem, 8vw, 8rem);
     font-weight: 900;
-    color: #2a52be;
+    color: var(--primary);
     margin-bottom: 1.5rem;
     letter-spacing: -0.02em;
-    text-shadow: 0 4px 20px rgba(42, 82, 190, 0.1);
+    text-shadow: 0 4px 20px rgba(67, 71, 82, 0.1);
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
+    
 }
 
 .hero-title:hover {
@@ -48,7 +63,7 @@ body {
 .hero-subtitle {
     font-family: 'Roboto', sans-serif;
     font-size: clamp(1.5rem, 4vw, 2.5rem);
-    color: #64748b;
+    color: var(--text-muted);
     margin-bottom: 2rem;
     font-weight: 400;
     font-style: italic;
@@ -62,71 +77,49 @@ body {
     font-weight: 300;
 }
 
-/* Animations */
-.fade-in {
-    animation: fadeIn 0.8s ease-out forwards;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
 /* Section Styles */
 .section-title {
     font-family: 'Roboto', sans-serif;
     font-size: clamp(2.5rem, 5vw, 4rem);
     font-weight: 700;
     text-align: center;
-    margin-bottom: 4rem;
-    color: #1f2937;
-    letter-spacing: -0.01em;
+    margin-bottom: 3rem;
+    color: var(--secondary);
 }
 
-/* Enhanced Carousel Section */
 
-/* Fixed Stacking Flip Cards Section */
+/* Responsive Flip Cards */
 .flip-cards-section {
-    padding: 8rem 0;
-    background: linear-gradient(135deg, #f9fafb 0%, #ffffff 100%);
-    position: relative;
+    margin-bottom: 120px;
 }
 
 .stacking-cards-container {
-    max-width: 900px;
+     max-width: 70%;
     margin: 0 auto;
-    position: relative;
-    min-height: 250vh;
+    position: relative; 
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+   
 }
+
 
 .flip-card.large-card {
     width: 100%;
-    max-width: 800px;
     height: 22rem;
-    perspective: 1000px;
     position: sticky;
     top: 2rem;
     margin: 0 auto 6rem;
     z-index: 1;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.4s cubic-bezier(0, 4, 0, 0.2, 1);
 }
 
-.flip-card.stacked {
-    opacity: 1;
-}
 
 .flip-card-inner {
-    position: relative;
     width: 100%;
     height: 100%;
     text-align: left;
-    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 2);
     transform-style: preserve-3d;
 }
 
@@ -139,37 +132,37 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     border-radius: 1.5rem;
-    padding: 3rem;
+    padding: 2rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    
-    box-shadow: none;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 
+                0px 1px 2px rgba(0, 0, 0, 0.24);
     border: 2px solid #e2e8f0;
+
 }
 
 .flip-card-front {
-   background: linear-gradient(45deg, #000000 0%, #2b0a3d 100%);
-    
-    border: 1px solid #e2e8f0;
+    background: var(--card-background);
+    border: 1px solid var(--hover);
 }
 
-.flip-card-back {
-    background: linear-gradient(100deg, #2a52be 0%, #8b5cf6 100%);
+.flip-card-back { 
+    background: linear-gradient(135deg, var(--primary), var(--highlight));;
     color: white;
     transform: rotateY(180deg);
 }
 
 .flip-card h3 {
     font-family: 'Roboto', sans-serif;
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 700;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     color: #1f2937;
     letter-spacing: -0.01em;
+    text-align:left;
 }
 
 .flip-card-back h3 {
@@ -177,11 +170,12 @@ body {
 }
 
 .flip-card p {
-    color: #929cb1;
-    font-size: 1.1rem;
-    line-height: 1.7;
+    color: #6b7280;
+    font-size: 1rem;
+    line-height: 1.6;
     flex-grow: 1;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
+    text-align: left;
 }
 
 .flip-card-back p {
@@ -189,37 +183,28 @@ body {
 }
 
 .flip-btn {
-    background: linear-gradient(135deg, #2a52be, #8b5cf6);
+    background: #005ac1;
     color: white;
     border: none;
-    padding: 1rem 2rem;
-    border-radius: 3rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 2rem;
     cursor: pointer;
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 0.9rem;
     transition: all 0.3s ease;
-    align-self: flex-start;
+    align-self: inline;
     box-shadow: 0 4px 15px rgba(42, 82, 190, 0.3);
 }
 
 .flip-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(36, 78, 194, 0.4);
+    background-color: var(--highlight);
 }
 
-.flip-btn.outline {
-    background: transparent;
-    color: white;
-    border: 2px solid rgba(255, 255, 255, 0.8);
-    box-shadow: none;
-}
-
-.flip-btn.outline:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: white;
-}
 
 /* Achievements Section */
+
 .achievements-section {
     padding: 6rem 0;
     background: linear-gradient(135deg, #2a52be 0%, #8b5cf6 100%);
@@ -239,18 +224,18 @@ body {
 }
 
 .achievement-card {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
+    background: var(--card-background);
+    border: 1px solid var(--hover);
     padding: 2.5rem;
     border-radius: 1.5rem;
     text-align: center;
-    border: 1px solid rgba(255, 255, 255, 0.2);
     transition: all 0.3s ease;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .achievement-card:hover {
     transform: translateY(-5px);
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(203, 34, 34, 0.15);
 }
 
 .achievement-number {
@@ -258,7 +243,7 @@ body {
     font-size: 3.5rem;
     font-weight: 900;
     margin-bottom: 1rem;
-    background: linear-gradient(135deg, #ffffff, #e0f2fe);
+    background: linear-gradient(135deg, var(--primary), var(--highlight));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -277,34 +262,31 @@ body {
     font-size: 1rem;
     line-height: 1.6;
 }
+/* Achievements Section */
 
 /* CTA Section */
-.cta-section {
-    padding: 8rem 0;
-    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+.container2{
+   display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     text-align: center;
+}
+.cta-section {
+    padding: 30px;
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
 }
 
 .cta-section h2 {
     font-family: 'Roboto', sans-serif;
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    font-weight: 700;
+    font-size:3rem;
     margin-bottom: 1.5rem;
-    color: #1f2937;
-}
-
-.cta-section p {
-    font-size: 1.25rem;
-    color: #6b7280;
-    margin-bottom: 3rem;
-    max-width: 40rem;
-    margin-left: auto;
-    margin-right: auto;
+    color: #255aa5;
 }
 
 .cta-btn {
-    background: linear-gradient(135deg, #2a52be, #3a2669);
-    color: white;
+    background: var(--primary);
+    color: #ffffff;
     border: none;
     padding: 1.5rem 3rem;
     font-size: 1.25rem;
@@ -312,7 +294,14 @@ body {
     cursor: pointer;
     font-weight: 600;
     transition: all 0.3s ease;
-    box-shadow: 0 8px 25px rgba(42, 82, 190, 0.3);
+    box-shadow: 0 4px 15px rgba(42, 82, 190, 0.3);
+}
+
+.cta-section p {
+    font-size: 1.25rem;
+    color: #6b7280;
+    margin-bottom: 3rem;
+    max-width: 40rem;
 }
 
 .cta-btn:hover {
@@ -322,8 +311,8 @@ body {
 
 /* Footer */
 .footer {
-    background: #1f2937;
-    color: white;
+   background: var(--text-main);
+    color: var(--text-muted);
     padding: 3rem 0;
     text-align: center;
 }
@@ -334,106 +323,32 @@ body {
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
-    .container {
-        padding: 0 1rem;
-    }
-    
-    .hero-title:hover {
-        transform: scale(1.02);
-    }
-    
-    .carousel-wrapper {
-        margin: 0 2rem;
-    }
-    
-    .carousel-track {
-        gap: 1rem;
-        padding: 1rem;
-    }
-    
-    .square-card {
-        min-width: 250px;
-        height: 300px;
-    }
-    
-    .card-content {
-        padding: 1.5rem;
-    }
-    
-    .carousel-btn {
-        width: 3rem;
-        height: 3rem;
-        font-size: 1.25rem;
-    }
-    
-    .carousel-btn.prev {
-        left: 0.5rem;
-    }
-    
-    .carousel-btn.next {
-        right: 0.5rem;
-    }
-    
+
+
+@media screen and (max-width: 768px) {
     .flip-card.large-card {
-        height: 18rem;
         margin-bottom: 3rem;
     }
-    
-    .flip-card-front,
-    .flip-card-back {
-        padding: 2rem;
-    }
-    
+
     .flip-card h3 {
-        font-size: 1.5rem;
+        font-size: 1rem; 
     }
-    
+
     .flip-card p {
-        font-size: 1rem;
+        font-size: auto;
     }
-    
-    .achievements-grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
+
+    .flip-btn {
+        font-size: auto;
+        padding: 0.4rem 0.8rem;
     }
-    
+
     .stacking-cards-container {
-        max-width: 95%;
+        max-width: 100%; /* Usar ancho completo en móviles */
+        padding: 0 1rem;
+        
     }
+
+    
 }
 
-@media (max-width: 480px) {
-    .hero {
-        padding: 3rem 0;
-    }
-    
-    .square-card {
-        min-width: 200px;
-        height: 280px;
-    }
-    
-    .card-content {
-        padding: 1rem;
-    }
-    
-    .flip-card.large-card {
-        height: 16rem;
-        margin-bottom: 2rem;
-    }
-    
-    .flip-card-front,
-    .flip-card-back {
-        padding: 1.5rem;
-    }
-    
-    .topic-number {
-        width: 3rem;
-        height: 3rem;
-        font-size: 1rem;
-    }
-    
-    .image-placeholder {
-        height: 80px;
-    }
-}

@@ -1,6 +1,3 @@
-
-// Enhanced Carousel functionality
-
 // Flip card functionality
 function flipCard(cardId) {
     const card = document.getElementById(cardId);
@@ -13,55 +10,61 @@ function flipCard(cardId) {
     }, 300);
 }
 
-// Fixed Stacking Cards scroll animation
+// Mejor clase StackingCards para apilar cartas con GSAP, sin bugs ni visuales raros
 class StackingCards {
     constructor() {
         this.cards = document.querySelectorAll('.flip-card.large-card');
         this.container = document.querySelector('.stacking-cards-container');
+        this.maxStackOffset = -10; // Máximo desplazamiento vertical entre cartas apiladas (px)
         this.init();
     }
-    
+
     init() {
-        this.handleScroll();
-        window.addEventListener('scroll', () => this.handleScroll());
-        
-        // Set initial z-index values
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Establecer z-index base para evitar superposiciones extrañas
         this.cards.forEach((card, index) => {
             card.style.zIndex = this.cards.length - index;
+            // Reset transform para evitar problemas iniciales
+            gsap.set(card, { clearProps: "all" });
         });
-    }
-    
-    handleScroll() {
-        const scrollTop = window.pageYOffset;
-        const windowHeight = window.innerHeight;
-        
+
+        // Crear animaciones GSAP para cada carta con ScrollTrigger
         this.cards.forEach((card, index) => {
-            const cardRect = card.getBoundingClientRect();
-            const cardTop = cardRect.top + scrollTop;
-            
-            // Calculate when card should start stacking
-            const triggerPoint = scrollTop + windowHeight * 0.7;
-            
-            if (triggerPoint > cardTop) {
-                // Card should stack - move it up and scale down slightly
-                const stackProgress = Math.min(1, (triggerPoint - cardTop) / (windowHeight * 0.2));
-                const stackOffset = index * 20; // Stack each card 20px higher
-                const scaleReduction = index * 0.05; // Scale down slightly
-                
-                card.style.transform = `translateY(-${stackOffset * stackProgress}px) scale(${1 - scaleReduction * stackProgress})`;
-                card.style.zIndex = this.cards.length + index; // Reverse z-index for proper stacking
-                card.classList.add('stacked');
-            } else {
-                // Card is in normal position
-                card.style.transform = 'translateY(0) scale(1)';
-                card.style.zIndex = this.cards.length - index;
-                card.classList.remove('stacked');
-            }
+            const totalCards = this.cards.length;
+            const stackOffset = this.maxStackOffset * index; // desplazamiento acumulado
+            const scaleFactor = 1 - index * 0.04; // escala progresiva
+
+            gsap.to(card, {
+                scrollTrigger: {
+                    trigger: this.container,
+                    start: "top top",
+                    end: () => `+=${window.innerHeight * 2}`, // duración del efecto scroll
+                    scrub: 0.7, // suaviza el scrubbing (menos jitter)
+                    invalidateOnRefresh: true,
+                    // markers: true, // activa para debug visual
+                },
+                y: -stackOffset,
+                scale: scaleFactor,
+                ease: "power1.out",
+                zIndex: totalCards + index,
+                overwrite: "auto",
+                // Para evitar que quede visible el botón de atrás de la carta anterior:
+                onUpdate: () => {
+                    // Si la carta está demasiado "apilada", escondemos el botón frontal para evitar overlap visual
+                    const progress = ScrollTrigger.getById(card)?.progress || 0;
+                    if(progress > 0.95) {
+                        card.querySelector('.flip-card-front').style.visibility = 'hidden';
+                    } else {
+                        card.querySelector('.flip-card-front').style.visibility = 'visible';
+                    }
+                }
+            });
         });
     }
 }
 
-// Enhanced intersection observer for animations
+// Intersection Observer para fade-in en secciones
 const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
@@ -72,80 +75,98 @@ const observer = new IntersectionObserver((entries) => {
         if (entry.isIntersecting) {
             entry.target.style.opacity = '1';
             entry.target.style.transform = 'translateY(0)';
-            
-            // Add stagger delay for multiple elements
-            if (entry.target.classList.contains('achievement-card')) {
-                const cards = document.querySelectorAll('.achievement-card');
-                cards.forEach((card, index) => {
-                    if (card === entry.target) {
-                        card.style.transitionDelay = `${index * 0.2}s`;
-                    }
-                });
-            }
         }
     });
 }, observerOptions);
 
-// Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
 
-    
-    // Initialize stacking cards
+    // Inicializa StackingCards (animación GSAP en cartas)
     const stackingCards = new StackingCards();
-    
-    // Set up scroll animations
+
+    // Animaciones fade-in para elementos estáticos
     const animatedElements = document.querySelectorAll('.section-title, .achievement-card');
     animatedElements.forEach(el => {
         el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
+        el.style.transform = 'translateY(20px)';
         el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
         observer.observe(el);
     });
-    
-    // Enhanced touch/swipe support for mobile carousel
-    let startX = 0;
-    let startY = 0;
-    let isDragging = false;
-    let currentX = 0;
-    let currentY = 0;
-    
-    const carouselTrack = document.getElementById('carouselTrack');
-    
-    carouselTrack.addEventListener('touchstart', (e) => {
-        startX = e.touches[0].clientX;
-        startY = e.touches[0].clientY;
-        isDragging = true;
-    }, { passive: true });
-    
-    carouselTrack.addEventListener('touchmove', (e) => {
-        if (!isDragging) return;
-        
-        currentX = e.touches[0].clientX;
-        currentY = e.touches[0].clientY;
-        
-        // Prevent vertical scrolling when swiping horizontally
-        const diffX = Math.abs(currentX - startX);
-        const diffY = Math.abs(currentY - startY);
-        
-        if (diffX > diffY) {
-            e.preventDefault();
-        }
-    }, { passive: false });
-    
-    carouselTrack.addEventListener('touchend', (e) => {
-        if (!isDragging) return;
-        
-        const endX = e.changedTouches[0].clientX;
-        const diffX = startX - endX;
-        
-        if (Math.abs(diffX) > 50) { // Minimum swipe distance
-            if (diffX > 0) {
-                carousel.nextSlide();
-            } else {
-                carousel.prevSlide();
-            }
-        }
-        
-        isDragging = false;
-    }, { passive: true });
+
+    // Animaciones hero al cargar
+    gsap.from(".hero-title", {
+        duration: 1,
+        opacity: 0,
+        y: -50,
+        ease: "power3.out",
+        delay: 0.2,
+    });
+
+    gsap.from(".hero-subtitle", {
+        duration: 1,
+        opacity: 0,
+        y: 50,
+        ease: "power3.out",
+        delay: 0.5,
+    });
+
+    gsap.from(".hero-description", {
+        duration: 1,
+        opacity: 0,
+        y: 20,
+        ease: "power3.out",
+        delay: 0.8,
+    });
+
+     gsap.registerPlugin(ScrollTrigger);
+
+    // Scroll automático desde Hero a la siguiente sección
+    ScrollTrigger.create({
+        trigger: ".hero", // La sección inicial
+        start: "top top", // Comienza al inicio del viewport
+        end: "bottom top", // Cuando el final de Hero toca el inicio del viewport
+        onEnter: () => {
+            gsap.to(window, {
+                scrollTo: ".flip-cards-section", // Sección destino
+                duration: 1.2, // Duración del desplazamiento
+                ease: "power2.inOut",
+            });
+        },
+    });
+
+
+    transitionTimeline
+        .to(".hero", {
+            opacity: 0,
+             y: ".flip-cards-section",
+            offsetY: 1,
+            ease: "power1.out",
+            duration: 1,
+        }, 0)
+        .fromTo(".flip-cards-section",
+            {opacity: 0, y: 50},
+            {opacity: 1, y: 0, ease: "power1.out", duration: 1},
+            0
+        );
+
+});
+document.addEventListener("DOMContentLoaded", () => {
+    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+    // Scroll automático desde Hero a la siguiente sección
+    ScrollTrigger.create({
+        trigger: ".hero", // La sección inicial
+        start: "top", // Comienza al inicio del viewport
+        end: "bottom top", // Cuando el final de Hero toca el inicio del viewport
+        onEnter: () => {
+            gsap.to(window, {
+                scrollTo: {
+                    y: ".flip-cards-section", // Sección destino
+                    offsetY: 0, // Ajusta el desplazamiento (px) para posicionar mejor
+                },
+                duration: 1.2, // Duración del desplazamiento
+                ease: "power2.inOut",
+            });
+        },
+    });
 });
